@@ -37,12 +37,17 @@ namespace JSON
 
             //Десериализуем Product.json
             string jsonString1 = File.ReadAllText("Products.json");
-            Goods goods1 = JsonSerializer.Deserialize<Goods>(jsonString1);
+            Goods goods1 = JsonSerializer.Deserialize<Goods>(jsonString1);                      
+
+            //Определение самой дорогой стоимости в массиве
+            double maxGoodsPrice = goods.GoodsPrice.Max();
+            int maxIndex = Array.IndexOf(goods.GoodsPrice, maxGoodsPrice);
+            
+
+            string a = goods.GoodsName[maxIndex];
+            Console.WriteLine("Название самого дорогого товара: {0}", a);
 
             
-            double maxGoodsPrice = goods.GoodsPrice.Max();
-            Console.WriteLine(maxGoodsPrice);
-
             Console.ReadKey();
         }
     }
