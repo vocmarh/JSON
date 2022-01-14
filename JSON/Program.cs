@@ -13,34 +13,44 @@ namespace JSON
     class Program
     {
         static void Main(string[] args)
-        {
+        {   
+            //Сериализация метода
             Goods goods = new Goods() 
             { 
-                GoodsItem = 100, 
-                GoodsName = new string[] { "банан", "апельсин", "яблоко", "масло", "творог" }, 
-                GoodsPrice = 100.10 
+                GoodsItem = new int[] {Convert.ToInt32(Console.ReadLine()), Convert.ToInt32(Console.ReadLine()), Convert.ToInt32(Console.ReadLine()), Convert.ToInt32(Console.ReadLine()), Convert.ToInt32(Console.ReadLine()) }, 
+                GoodsName = new string[] {Console.ReadLine(), Console.ReadLine(), Console.ReadLine(), Console.ReadLine(), Console.ReadLine()}, 
+                GoodsPrice = new double[] {Convert.ToDouble(Console.ReadLine()), Convert.ToDouble(Console.ReadLine()), Convert.ToDouble(Console.ReadLine()), Convert.ToDouble(Console.ReadLine()), Convert.ToDouble(Console.ReadLine())} 
             };
             JsonSerializerOptions options = new JsonSerializerOptions()
             {
                 Encoder = JavaScriptEncoder.Create(UnicodeRanges.BasicLatin, UnicodeRanges.Cyrillic),
                 WriteIndented = true,                
             };
-            string jsonString1 = JsonSerializer.Serialize(goods, options);
-            Console.WriteLine(jsonString1);
+            string jsonString = JsonSerializer.Serialize(goods, options);
+            Console.WriteLine(jsonString);
 
             string path = "Products.json";
             using (StreamWriter sw = new StreamWriter(path))
             {
-                sw.WriteLine(jsonString1);                
+                sw.WriteLine(jsonString);                
             }
+
+            //Десериализуем Product.json
+            string jsonString1 = File.ReadAllText("Products.json");
+            Goods goods1 = JsonSerializer.Deserialize<Goods>(jsonString1);
+
+            
+            double maxGoodsPrice = goods.GoodsPrice.Max();
+            Console.WriteLine(maxGoodsPrice);
+
             Console.ReadKey();
         }
     }
     class Goods
     {
-        public int GoodsItem { get; set; }
+        public int[] GoodsItem { get; set; }
         public string[] GoodsName { get; set; }
-        public double GoodsPrice { get; set; }    
+        public double[] GoodsPrice { get; set; }    
 
     }
 }

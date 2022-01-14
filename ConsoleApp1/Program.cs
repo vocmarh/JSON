@@ -11,17 +11,9 @@ namespace ConsoleApp1
     {
         static void Main(string[] args)
         {
-            
-            string path = "Products.txt";
-            using (StreamWriter sw = new StreamWriter(path))
-            {
-                string[] array = new string[5];
-                for (int i = 0; i < array.Length; i++)
-                {
-                    array[i] = Console.ReadLine();
-                    sw.WriteLine(array[i]);
-                }                
-            }                        
+            double[] array = new double[5] { Convert.ToDouble(Console.ReadLine()), Convert.ToDouble(Console.ReadLine()), Convert.ToDouble(Console.ReadLine()), Convert.ToDouble(Console.ReadLine()), Convert.ToDouble(Console.ReadLine()) };
+            double maxArray = array.Max();
+            Console.WriteLine(maxArray);
             Console.ReadKey();
         }
     }
